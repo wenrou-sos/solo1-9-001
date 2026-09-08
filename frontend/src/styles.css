@@ -1,0 +1,149 @@
+:root {
+  --surface: #fcfcfb;
+  --surface-2: #f3f3f0;
+  --border: #e3e2dd;
+  --text-primary: #1b1b18;
+  --text-secondary: #52514e;
+  --text-muted: #85837c;
+  --series: #2a78d6;
+  --status-good: #0ca30c;
+  --status-warning: #b9820b;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+  --status-missing: #0f9b8e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+    "Segoe UI", sans-serif;
+  background: var(--surface-2);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.app-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.app-header h1 { font-size: 17px; margin: 0; }
+.app-nav { display: flex; gap: 4px; }
+.app-nav button {
+  border: none; background: none; padding: 6px 14px; border-radius: 6px;
+  font-size: 14px; color: var(--text-secondary); cursor: pointer;
+}
+.app-nav button.active { background: #e7f0fb; color: #1a5fb4; font-weight: 600; }
+
+.page { padding: 20px 24px; max-width: 1500px; margin: 0 auto; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.card h2 { font-size: 15px; margin: 0 0 12px; }
+.card h3 { font-size: 14px; margin: 16px 0 8px; color: var(--text-secondary); }
+
+button.btn {
+  background: var(--series); color: #fff; border: none; border-radius: 6px;
+  padding: 7px 16px; font-size: 14px; cursor: pointer;
+}
+button.btn:disabled { opacity: .5; cursor: not-allowed; }
+button.btn.secondary {
+  background: var(--surface); color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+button.btn.danger { background: var(--status-critical); }
+button.btn.small { padding: 4px 10px; font-size: 12.5px; }
+
+select, input[type="text"], input[type="number"], input[type="date"], textarea {
+  border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px;
+  font-size: 13.5px; background: var(--surface); color: var(--text-primary);
+  font-family: inherit;
+}
+textarea { width: 100%; resize: vertical; min-height: 54px; }
+label.field { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px;
+  color: var(--text-secondary); }
+
+.filter-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.filter-row .field { min-width: 130px; }
+
+/* 问题列表 + 图表 双栏 */
+.workbench { display: grid; grid-template-columns: 420px 1fr; gap: 16px; }
+@media (max-width: 1100px) { .workbench { grid-template-columns: 1fr; } }
+
+.issue-list { max-height: calc(100vh - 230px); overflow-y: auto; }
+.issue-item {
+  border: 1px solid var(--border); border-left-width: 4px; border-radius: 8px;
+  padding: 8px 12px; margin-bottom: 8px; cursor: pointer; background: var(--surface);
+}
+.issue-item.selected { outline: 2px solid var(--series); }
+.issue-item.resolved, .issue-item.ignored { opacity: .55; }
+.issue-head { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.rule-tag {
+  font-size: 12px; padding: 1px 8px; border-radius: 10px; color: #fff; white-space: nowrap;
+}
+.status-tag { font-size: 11.5px; padding: 1px 8px; border-radius: 10px; }
+.status-tag.open { background: #fdecea; color: var(--status-critical); }
+.status-tag.resolved { background: #e6f4e6; color: var(--status-good); }
+.status-tag.ignored { background: #e0f2f0; color: #0b7268; }
+.issue-detail { font-size: 12.5px; color: var(--text-secondary); margin: 4px 0;
+  line-height: 1.5; }
+.issue-meta { font-size: 11.5px; color: var(--text-muted); }
+
+table.records { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.records th, table.records td {
+  padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: left;
+  white-space: nowrap;
+}
+table.records th { color: var(--text-muted); font-weight: 500; position: sticky; top: 0;
+  background: var(--surface); }
+table.records tr.highlight { background: #fff6d6; }
+table.records tr.invalid td { color: var(--text-muted); text-decoration: line-through; }
+table.records tr.interpolated td { color: #0b7268; }
+
+.badge { font-size: 11px; padding: 0 6px; border-radius: 8px; margin-left: 4px; }
+.badge.interp { background: #e0f2f0; color: #0b7268; }
+.badge.invalid { background: #fdecea; color: var(--status-critical); }
+.badge.edited { background: #e7f0fb; color: #1a5fb4; }
+
+.error-box { background: #fdecea; border: 1px solid #f5c6c0; border-radius: 8px;
+  padding: 10px 14px; margin: 10px 0; }
+.warning-box { background: #fef6e0; border: 1px solid #f2dfa6; border-radius: 8px;
+  padding: 10px 14px; margin: 10px 0; }
+.info-box { background: #e7f0fb; border: 1px solid #c2d9f2; border-radius: 8px;
+  padding: 10px 14px; margin: 10px 0; }
+.error-box .row, .warning-box .row { font-size: 12.5px; margin: 2px 0; }
+
+.action-panel { border-top: 1px dashed var(--border); margin-top: 10px; padding-top: 10px; }
+.action-panel .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+.audit-table td .undone { color: var(--text-muted); text-decoration: line-through; }
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #2a2a27; color: #fff; padding: 10px 20px; border-radius: 8px;
+  font-size: 13.5px; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,.2);
+}
+.toast.error { background: var(--status-critical); }
+
+.chart-wrap { width: 100%; overflow-x: auto; }
+.legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-secondary);
+  margin: 6px 0; flex-wrap: wrap; }
+.legend .item { display: flex; align-items: center; gap: 5px; }
+.legend .swatch { width: 12px; height: 12px; border-radius: 3px; }
+
+.config-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; }
+.stat-row { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.stat-tile { background: var(--surface-2); border-radius: 8px; padding: 10px 18px; }
+.stat-tile .num { font-size: 22px; font-weight: 700; }
+.stat-tile .label { font-size: 12px; color: var(--text-muted); }
